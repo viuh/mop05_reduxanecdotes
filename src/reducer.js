@@ -19,10 +19,48 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+const voteAnecdote = ( state, id ) => {
+
+  let temp = state
+
+  //not pretty but works
+  temp.forEach(row => {
+
+    if (row.id === id) {
+      row.votes = row.votes+1
+    }
+  });
+  //console.log('Korjattu?', temp, ' for id:' , id , '?')
+
+  return temp
+
+}
+
+const addAnecdote = (state, action) => {
+
+  let temp = state
+  let act = action
+
+  let newItem = {content:action.data, id:getId(), votes:0}
+  temp = temp.concat(newItem)
+  action = ''
+  //console.log('lisatty 1, ', temp)
+  return temp
+}
+
+
 const reducer = (state = initialState, action) => {
-  console.log('state now: ',state)
-  console.log('action', action)
+  //console.log('state now: ',state)
+  //console.log('action', action)
   
+  switch (action.type) {
+
+    case 'VOTE':
+      return voteAnecdote(state, action.id)
+    case 'ADDNEW':
+      return addAnecdote (state, action)
+  }
+
   return state
 }
 

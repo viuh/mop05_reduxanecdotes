@@ -6,6 +6,12 @@ import reducer from './reducer'
 
 const store = createStore(reducer)
 
+/*store.subscribe(() => {
+  const storeNow = store.getState()
+  console.log("tila ny", storeNow)
+})*/
+
+
 const render = () => {
   ReactDOM.render(
     <App store={store} />,
